@@ -1,18 +1,17 @@
-const express = require('express');
-const app = express();
-const serverless = require('serverless-http');
+// api/index.js
 
-app.use(express.json());
+// Esta função será executada para qualquer requisição POST ou GET
+// em https://meu-bot-vercel.vercel.app/api
+module.exports = (req, res) => {
+  // Sua lógica de bot aqui
+  // O Vercel passa a requisição (req) e a resposta (res) diretamente
 
-app.get('/', (req, res) => {
-  res.status(200).send('Seu bot está online!');
-});
-
-app.post('/webhook', (req, res) => {
-  // Sua lógica do bot aqui
-  console.log('Webhook recebido!');
-  res.status(200).send('OK');
-});
-
-// Adapta o Express para ser uma função serverless
-module.exports = serverless(app);
+  if (req.method === 'POST') {
+    // Lógica para processar o webhook
+    console.log('Webhook recebido!');
+    res.status(200).send('OK');
+  } else {
+    // Lógica para responder a requisições GET (como ao abrir no navegador)
+    res.status(200).send('Seu bot está online!');
+  }
+};
