@@ -1,14 +1,18 @@
 const express = require('express');
 const app = express();
 
-app.use(express.json()); // Importante para processar o corpo da requisição
+app.use(express.json());
 
-// Altere esta linha para a rota do seu webhook
-// A rota agora será "/webhook"
+// Rota padrão para verificação (resolve o erro 404)
+app.get('/', (req, res) => {
+  res.status(200).send('Seu bot está online!');
+});
+
+// A rota do seu webhook (para receber as mensagens do bot)
 app.post('/webhook', (req, res) => {
-  // Lógica do seu bot para processar a mensagem
-  console.log('Mensagem recebida do webhook!');
-  res.status(200).send('Webhook recebido com sucesso!');
+  console.log('Webhook recebido!');
+  // Sua lógica para processar a mensagem do bot aqui
+  res.status(200).send('OK');
 });
 
 module.exports = app;
