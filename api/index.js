@@ -1,17 +1,18 @@
-module.exports = (req, res) => {
-  if (req.url === '/api') {
-    if (req.method === 'GET') {
-      res.status(200).send('Seu bot está online!');
-    }
-  }
+const express = require('express');
+const app = express();
 
-  if (req.url === '/api/webhook') {
-    if (req.method === 'POST') {
-      // Sua lógica para o webhook aqui
-      console.log('Webhook recebido!');
-      res.status(200).send('OK');
-    }
-  }
+app.use(express.json());
 
-  res.status(404).send('Not Found');
-};
+// Rota de verificação
+app.get('/', (req, res) => {
+  res.status(200).send('Seu bot está online!');
+});
+
+// Rota do seu webhook
+app.post('/webhook', (req, res) => {
+  // Sua lógica para processar o webhook aqui
+  console.log('Webhook recebido!');
+  res.status(200).send('OK');
+});
+
+module.exports = app;
