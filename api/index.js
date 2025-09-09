@@ -1,20 +1,14 @@
-// Importe as dependências necessárias, como o Express
 const express = require('express');
-
-// Crie uma instância do Express
 const app = express();
 
-// A Vercel vai expor este endpoint.
-// Por padrão, a URL será algo como: https://seu-projeto.vercel.app/api
-// A rota que você definir aqui (/) será a base do seu endpoint.
-// Por exemplo, uma requisição para https://seu-projeto.vercel.app/api/hello
-// vai acionar a rota app.get('/hello', ...).
+app.use(express.json()); // Importante para processar o corpo da requisição
 
-app.get('/', (req, res) => {
-  // A Vercel espera uma resposta da sua função
-  res.status(200).send('Olá! Meu bot está funcionando no Vercel.');
+// Altere esta linha para a rota do seu webhook
+// A rota agora será "/webhook"
+app.post('/webhook', (req, res) => {
+  // Lógica do seu bot para processar a mensagem
+  console.log('Mensagem recebida do webhook!');
+  res.status(200).send('Webhook recebido com sucesso!');
 });
 
-// A Vercel espera que sua aplicação seja exportada no arquivo.
-// Isso permite que ela inicie sua aplicação na hora do deploy.
 module.exports = app;
